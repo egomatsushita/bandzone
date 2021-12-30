@@ -1,31 +1,36 @@
-import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { ListRenderItemInfo } from "react-native";
 
 import Home from "../screens/home";
 import ReviewDetails from "../screens/reviewDetails";
 
+type ReviewItem = {
+  title: string;
+  rating: number;
+  body: string;
+  key: string;
+};
+
 export type RootStackParamList = {
   Home: undefined;
-  ReviewDetails: undefined;
+  ReviewDetails: ReviewItem;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function homeStack() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{ title: "BandZone" }}
-        />
-        <Stack.Screen
-          name="ReviewDetails"
-          component={ReviewDetails}
-          options={{ title: "Review Details" }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{ title: "BandZone" }}
+      />
+      <Stack.Screen
+        name="ReviewDetails"
+        component={ReviewDetails}
+        options={{ title: "Review Details" }}
+      />
+    </Stack.Navigator>
   );
 }
