@@ -1,18 +1,33 @@
-import { View, Text } from "react-native";
-import { useFonts } from "expo-font";
+import { View, Text, FlatList } from "react-native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
+import { RootStackParamList } from "../routes/homeStack";
 import { globalStyles } from "../styles/globalStyles";
 
-export default function Home() {
-  const [loaded] = useFonts({
-    nunito: require("../assets/fonts/Nunito-Regular.ttf"),
-    nunitoBold: require("../assets/fonts/Nunito-Bold.ttf"),
-  });
-  if (!loaded) return null;
+type Props = NativeStackScreenProps<RootStackParamList, "Home">;
+
+export default function Home({ navigation }: Props) {
+  const reviews = [
+    { title: "Pearl Jam", rating: 5, body: "lorem ipsum", key: "1" },
+    { title: "Nirvana", rating: 3, body: "lorem ipsum", key: "2" },
+    { title: "Pantera", rating: 4, body: "lorem ipsum", key: "3" },
+  ];
 
   return (
     <View style={globalStyles.container}>
-      <Text style={globalStyles.text}>Home</Text>
+      <FlatList
+        data={reviews}
+        renderItem={(review) => (
+          <TouchableOpacity
+            onPress={() => navigation.navigate("ReviewDetails", review.item)}
+          >
+            <View>
+              <Text style={globalStyles.text}>{review.item.title}</Text>
+            </View>
+          </TouchableOpacity>
+        )}
+      />
     </View>
   );
 }
