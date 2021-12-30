@@ -1,6 +1,6 @@
 import { useFonts } from "expo-font";
 
-import HomeStack from "./routes/homeStack";
+import Navigator from "./routes/drawer";
 
 export default function App() {
   const [loaded] = useFonts({
@@ -9,5 +9,5 @@ export default function App() {
   });
   if (!loaded) return null;
 
-  return <HomeStack />;
+  return <Navigator />;
 }
