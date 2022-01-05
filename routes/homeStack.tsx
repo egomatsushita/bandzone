@@ -1,8 +1,10 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { ListRenderItemInfo } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import Home from "../screens/home";
 import ReviewDetails from "../screens/reviewDetails";
+import { navStyles } from "../styles/globalStyles";
 
 type ReviewItem = {
   title: string;
@@ -24,8 +26,24 @@ export default function homeStack() {
       <Stack.Screen
         name="Home"
         component={Home}
-        options={{ title: "BandZone" }}
+        options={{
+          header: (header) => {
+            console.log(header);
+            return (
+              <View style={navStyles.container}>
+                <MaterialIcons
+                  name="menu"
+                  size={24}
+                  style={navStyles.menuIcon}
+                  onPress={() => header.navigation.openDrawer()}
+                />
+                <Text style={navStyles.text}>BandZone</Text>
+              </View>
+            );
+          },
+        }}
       />
+
       <Stack.Screen
         name="ReviewDetails"
         component={ReviewDetails}

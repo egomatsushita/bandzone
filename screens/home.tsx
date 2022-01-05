@@ -1,9 +1,10 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { RootStackParamList } from "../routes/homeStack";
 import { globalStyles } from "../styles/globalStyles";
+import Card from "../shared/card";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -18,16 +19,23 @@ export default function Home({ navigation }: Props) {
     <View style={globalStyles.container}>
       <FlatList
         data={reviews}
+        style={styles.list}
         renderItem={(review) => (
           <TouchableOpacity
             onPress={() => navigation.navigate("ReviewDetails", review.item)}
           >
-            <View>
+            <Card>
               <Text style={globalStyles.text}>{review.item.title}</Text>
-            </View>
+            </Card>
           </TouchableOpacity>
         )}
       />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  list: {
+    width: "100%",
+  },
+});
